@@ -29,8 +29,11 @@ Antes de configurar, anota:
 - **Pole pairs do motor**: motores de hoverboard tipicamente têm **15 pares de polos**
   (30 imãs) — é o valor mais comum, mas confirme contando os imãs do seu motor
   (número de imãs ÷ 2) se quiser ter certeza.
-- **CPR do encoder** (counts per revolution = 4 × PPR): olha no datasheet/modelo do seu
-  encoder. Ex.: AMT102 configurado pra 2048 PPR → CPR = 8192.
+- **CPR do encoder**: com o **MT6701 em modo ABZ (incremental)**, CPR = **4096**
+  (confirmado na documentação do FFBeast). O MT6701 é um encoder magnético multi-modo
+  (ABZ, PWM, SSI, I2C, UVW) — confirme no seu breakout específico que ele está
+  configurado/travado em modo **ABZ**, já que é esse o único modo que o ODrive lê
+  nativamente como encoder incremental.
 - **Corrente máxima** que você quer permitir no primeiro teste — comece **conservador**
   (ex.: 10-15A) até confirmar que tudo está saudável, depois sobe.
 
@@ -58,7 +61,7 @@ odrv0.axis0.motor.config.current_lim = 15                # AJUSTAR — limite de
 odrv0.axis0.motor.config.requested_current_range = 25
 
 # --- encoder ---
-odrv0.axis0.encoder.config.cpr = 8192                     # AJUSTAR pro CPR real do seu encoder
+odrv0.axis0.encoder.config.cpr = 4096                      # MT6701 em modo ABZ
 odrv0.axis0.encoder.config.mode = ENCODER_MODE_INCREMENTAL
 
 # --- limites de segurança da fonte ---
